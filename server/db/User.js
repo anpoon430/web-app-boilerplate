@@ -47,7 +47,8 @@ const saltRounds = 10;
 User.prototype.correctPassword = async function (candidatePassword) {
   // should return true or false for if the entered password matches
   try {
-    return await bcrypt.compare(candidatePassword, this.password);
+    const match = await bcrypt.compare(candidatePassword, this.password);
+    return match;
   }catch(err){
     console.error(err)
   }

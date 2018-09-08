@@ -11,7 +11,6 @@ const { User } = require ('./db')
 
 
 
-
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, '../public')));
 
@@ -48,9 +47,9 @@ passport.deserializeUser(async (id, done) => {
 })
 
 
-app.use(require('./api'))
+app.use('/api', require('./api'))
 
-
+app.use('/', require('./auth/login'));
 
 
 
