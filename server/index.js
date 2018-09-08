@@ -7,6 +7,7 @@ const {db} = require('./db')
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const passport = require('passport');
 const dbStore = new SequelizeStore({ db });
+const { User } = require ('./db')
 
 
 
@@ -29,22 +30,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// passport.serializeUser((user, done) => {
-//   try {
-//     done(null, user.id);
-//   } catch (err) {
-//     done(err);
-//   }
-// });
+passport.serializeUser((user, done) => {
+  try {
+    done(null, user.id);
+  } catch (err) {
+    done(err);
+  }
+});
 
-// passport.deserializeUser(async (id, done) => {
-//   try {
-//     const user = await User.findById(id)
-//     done(null, user)
-//   } catch (err) {
-//     done(err)
-//   }
-// })
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id)
+    done(null, user)
+  } catch (err) {
+    done(err)
+  }
+})
 
 
 app.use(require('./api'))
