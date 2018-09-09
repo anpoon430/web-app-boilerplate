@@ -51,6 +51,8 @@ app.use('/api', require('./api'))
 
 app.use('/', require('./auth/login'));
 
+app.use('/auth/google', require('./auth/google'))
+
 
 
 
